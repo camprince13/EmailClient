@@ -15,15 +15,12 @@ namespace EmailClient
         public void DtaFldCre()
         {
             string MainP = @"Data";
-            //string ImgP = @"Data\Image";
             bool exists = System.IO.Directory.Exists((MainP));
             if (!exists)
                 System.IO.Directory.CreateDirectory((MainP));
-            /*exists = System.IO.Directory.Exists((ImgP));
-            if (!exists)
-                System.IO.Directory.CreateDirectory((ImgP));*/
+
             DtaDbCre();
-        }
+        }//end DtaFldCre
 
         public void DtaDbCre()
         {
@@ -51,22 +48,16 @@ namespace EmailClient
             }//End if
 
 
-
-
         }//End dbCre
 
-        public void TblCre()
+        public static void TblCre()
         {
 
             OleDbConnection conn = new OleDbConnection();
             OleDbCommand comm = new OleDbCommand();
-            string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";//@SqlDb_Game.GetConnected();
+            string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";
 
-            //string sqlString = "CREATE TABLE RecipeTable ([id] AUTOINCREMENT NOT NULL, [rName] text(50), [rDesc] text(100), [type] text(50), [ingr] memo, [recipe] memo, [notes] memo, [favorite] BIT, PRIMARY KEY (id));";
             string sqlString = "CREATE TABLE EmailAccounts ([id] AUTOINCREMENT NOT NULL, [name] text(50), [eAddr] text(100), [eDesc] text(100), [pass] text(100), PRIMARY KEY (id));";
-
-
-
 
             conn.ConnectionString = strConn;
             comm.Connection = conn;
@@ -88,16 +79,15 @@ namespace EmailClient
         }
 
 
-        public void chIfTableExists()
+        public static void chIfTableExists()
         {
             bool exists = false;
 
             OleDbConnection conn = new OleDbConnection();
             OleDbCommand comm = new OleDbCommand();
-            string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";//@SqlDb_Game.GetConnected();
-            //string sqlString = "CREATE TABLE RecipeTable ([id] AUTOINCREMENT NOT NULL, [rName] nvarchar(50), [rDesc] nvarchar(100), [type] nvarchar(50), [ingr] nvarchar(200), [recipe] nvarchar(max), [notes] nvarchar(200), [favorite] bit, PRIMARY KEY (id));";
+            string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";
 
-            string sqlString = @"SELECT COUNT(*) FROM RecipeTable";
+            string sqlString = @"SELECT COUNT(*) FROM EmailAccounts";
 
             conn.ConnectionString = strConn;
             comm.Connection = conn;

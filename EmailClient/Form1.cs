@@ -25,6 +25,7 @@ namespace EmailClient
         public Form1()
         {
             InitializeComponent();
+            FiCre.chIfTableExists();
         }
 
         private void btnSubEmail_Click(object sender, EventArgs e)
@@ -33,14 +34,17 @@ namespace EmailClient
         }
 
 
-        static void ETest()
+        private void ETest()
         {
             var client = new OpenPop.Pop3.Pop3Client(); //new POPClient();
             client.Connect("pop.gmail.com", 995, true);
-            client.Authenticate("user", "pass");
+            client.Authenticate(txtEmail.Text, txtPass.Text);
             var count = client.GetMessageCount();
             OpenPop.Mime.Message message = client.GetMessage(count);
-            Console.WriteLine(message.Headers.Subject);
+            //Console.WriteLine(message.Headers.Subject);
+            //MessageBox.Show(message.Headers.Subject.ToString(), message.MessagePart.Body.ToString());
+            Console.WriteLine(message.Headers.Subject.ToString());
+            Console.WriteLine(message.MessagePart.Body.ToString());
         }//end etest
 
     }//end class
