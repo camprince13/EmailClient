@@ -7,13 +7,15 @@ namespace EmailClient
     class EmailType
     {
         //class to store email info needed for sending/recieving
-        public EmailType(string EmailTypeName, int recPort, string recServer, int sndPort, string sndServer)
+        public EmailType(string EmailTypeName, int recPort, string recServer, bool recSSL, int sndPort, string sndServer, bool sndSSL)
         {
             name = EmailTypeName;
             recievePort = recPort;
             recieveServer = recServer;
+            recieveSSL = recSSL;
             sendPort = sndPort;
             sendServer = sndServer;
+            sendSSL = sndSSL;
         }//end full constructor
 
         public EmailType(string EmailTypeName)
@@ -52,6 +54,14 @@ namespace EmailClient
             set { recieveServer = value; }
         }
 
+        private bool recieveSSL;
+
+        public bool RecieveSSL
+        {
+            get { return recieveSSL; }
+            set { recieveSSL = value; }
+        }
+
         private int sendPort;
 
         public int SendPort
@@ -68,6 +78,14 @@ namespace EmailClient
             set { sendServer = value; }
         }
 
+        private bool sendSSL;
+
+        public bool SendSSL
+        {
+            get { return sendSSL; }
+            set { sendSSL = value; }
+        }
+
         #endregion
 
         private void completeGuess(string nm)
@@ -75,8 +93,10 @@ namespace EmailClient
             name = nm;
             recievePort = 995;
             recieveServer = "pop."+ nm +".com";
+            recieveSSL = true;
             sendPort = 465;
             sendServer = "smtp."+ nm +".com";
+            sendSSL = true;
         }//end completeGuess
 
         private void completeGoogle()
@@ -84,8 +104,10 @@ namespace EmailClient
         name = "Google";
         recievePort = 995;
         recieveServer = "pop.gmail.com";
+        recieveSSL = true;
         sendPort = 465;
         sendServer = "smtp.gmail.com";
+        sendSSL = true;
         }//end completeGoogle
 
 

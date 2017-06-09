@@ -6,17 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using OpenPop;
-using OpenPop.Common;
-using OpenPop.Common.Logging;
-using OpenPop.Mime;
-using OpenPop.Mime.Decode;
-using OpenPop.Mime.Header;
-using OpenPop.Pop3;
 
-using System.IO;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
 
 namespace EmailClient
 {
@@ -25,27 +15,36 @@ namespace EmailClient
         public Form1()
         {
             InitializeComponent();
-            FiCre.chIfTableExists();
-        }
+            FiCre.DtaFldCre();
+
+            if (FiCre.chIfTableContains() >= 1)
+            {
+                panel1.Visible = false;
+                panel1.Enabled = false;
+            }
+
+        }//end constructor
 
         private void btnSubEmail_Click(object sender, EventArgs e)
         {
-            ETest();
-        }
+            EmailAccount em = new EmailAccount();
+            em.Address = txtEmail.Text;
+            em.Description = txtDesc.Text;
+            em.Name = txtName.Text;
+            em.Password = txtPass.Text;
+            em.Type = txtType.Text;
 
+            string outp = DBHandler.AddEmail(em);
+            if (outp.ToLower().Contains("error"))
+            { MessageBox.Show("There was an error, please try again."); }
 
-        private void ETest()
-        {
-            var client = new OpenPop.Pop3.Pop3Client(); //new POPClient();
-            client.Connect("pop.gmail.com", 995, true);
-            client.Authenticate(txtEmail.Text, txtPass.Text);
-            var count = client.GetMessageCount();
-            OpenPop.Mime.Message message = client.GetMessage(count);
-            //Console.WriteLine(message.Headers.Subject);
-            //MessageBox.Show(message.Headers.Subject.ToString(), message.MessagePart.Body.ToString());
-            Console.WriteLine(message.Headers.Subject.ToString());
-            Console.WriteLine(message.MessagePart.Body.ToString());
-        }//end etest
+            else
+            {
+                panel1.Visible = false;
+                panel1.Enabled = false;
+            }
+        }//end submit email
+
 
     }//end class
 }//end namespace

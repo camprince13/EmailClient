@@ -12,7 +12,7 @@ namespace EmailClient
 {
     class FiCre
     {
-        public void DtaFldCre()
+        public static void DtaFldCre()
         {
             string MainP = @"Data";
             bool exists = System.IO.Directory.Exists((MainP));
@@ -22,7 +22,7 @@ namespace EmailClient
             DtaDbCre();
         }//end DtaFldCre
 
-        public void DtaDbCre()
+        public static void DtaDbCre()
         {
             if (!File.Exists(@"Data\Data.accdb"))
             {
@@ -57,7 +57,7 @@ namespace EmailClient
             OleDbCommand comm = new OleDbCommand();
             string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";
 
-            string sqlString = "CREATE TABLE EmailAccounts ([id] AUTOINCREMENT NOT NULL, [name] text(50), [eAddr] text(100), [eDesc] text(100), [pass] text(100), PRIMARY KEY (id));";
+            string sqlString = "CREATE TABLE EmailAccounts ([id] AUTOINCREMENT NOT NULL, [name] text(50), [eAddr] text(100), [eDesc] text(100), [pass] text(100), [eType] text(50), PRIMARY KEY (id));";
 
             conn.ConnectionString = strConn;
             comm.Connection = conn;
@@ -76,7 +76,7 @@ namespace EmailClient
             {
                 conn.Close();
             }
-        }
+        }//end TblCre
 
 
         public static void chIfTableExists()
@@ -107,6 +107,36 @@ namespace EmailClient
 
             if (exists == false) { TblCre(); }
         }//end chIfTableExists
+
+        public static int chIfTableContains()
+        {
+
+            OleDbConnection conn = new OleDbConnection();
+            OleDbCommand comm = new OleDbCommand();
+            string strConn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Data\Data.accdb;Persist Security Info=False;";
+
+            string sqlString = @"SELECT COUNT(*) FROM EmailAccounts";
+
+            conn.ConnectionString = strConn;
+            comm.Connection = conn;
+            comm.CommandText = sqlString;
+            int numAccounts;
+            try
+            {
+                conn.Open();
+                numAccounts = Convert.ToInt32(comm.ExecuteNonQuery());
+            }
+            catch
+            {
+                numAccounts = 0;
+            }
+            finally { conn.Close(); }
+
+
+            return numAccounts;
+        }//end chIfTableExists
+
+
 
         public void write2Lic(string input)
         {
