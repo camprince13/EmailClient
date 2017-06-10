@@ -124,7 +124,7 @@ namespace EmailClient
             try
             {
                 conn.Open();
-                numAccounts = Convert.ToInt32(comm.ExecuteNonQuery());
+                numAccounts = Convert.ToInt32(comm.ExecuteScalar());//ExecuteNonQuery());
             }
             catch
             {

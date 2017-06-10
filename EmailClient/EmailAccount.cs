@@ -6,6 +6,13 @@ namespace EmailClient
 {
     class EmailAccount
     {
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         private string address;
 

@@ -19,27 +19,14 @@ namespace EmailClient
     class MailHandler
     {
 
-        public void testFunction(EmailType e, string addr, string pass)
-        {
 
-            var client = new OpenPop.Pop3.Pop3Client(); //new POPClient();
-            client.Connect("pop.gmail.com", 995, true);
-            client.Authenticate(addr, pass);
-            var count = client.GetMessageCount();
-            OpenPop.Mime.Message message = client.GetMessage(count);
-            Console.WriteLine(message.Headers.Subject.ToString());
-            Console.WriteLine(message.MessagePart.Body.ToString());
-
-        }//end testFunction
-
-
-        public static List<Message> FetchAllMessages(string hostname, int port, bool useSsl, string username, string password)
+        public static List<Message> FetchAllMessages(EmailType et, string username, string password)//string hostname, int port, bool useSsl, string username, string password)
         {
             // The client disconnects from the server when being disposed
             using (Pop3Client client = new Pop3Client())
             {
                 // Connect to the server
-                client.Connect(hostname, port, useSsl);
+                client.Connect(et.RecieveServer, et.RecievePort, et.RecieveSSL);
 
                 // Authenticate ourselves towards the server
                 client.Authenticate(username, password);
@@ -57,6 +44,9 @@ namespace EmailClient
                 {
                     allMessages.Add(client.GetMessage(i));
                 }
+
+                client.Disconnect();
+                client.Dispose();
 
                 // Now return the fetched messages
                 return allMessages;

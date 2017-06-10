@@ -20,9 +20,21 @@ namespace EmailClient
 
         public EmailType(string EmailTypeName)
         {
-            if (EmailTypeName.ToLower() == "google")
+            if (EmailTypeName.ToLower() == "google" || EmailTypeName.ToLower() == "gmail")
             { completeGoogle(); }
 
+            else if (EmailTypeName.ToLower() == "outlook")
+            {completeOutlook();}
+
+            else if (EmailTypeName.ToLower() == "office365" || EmailTypeName.ToLower() == "office")
+            { completeOffice365(); }
+
+            else if (EmailTypeName.ToLower() == "yahoo")
+            { completeYahoo(); }
+                
+            else if (EmailTypeName.ToLower() == "hotmail")
+            { completeHotmail(); }
+   
             else
             { completeGuess(EmailTypeName); }
 
@@ -88,6 +100,8 @@ namespace EmailClient
 
         #endregion
 
+        #region AutoComplete Settings
+
         private void completeGuess(string nm)
         {
             name = nm;
@@ -110,12 +124,72 @@ namespace EmailClient
         sendSSL = true;
         }//end completeGoogle
 
+        private void completeOutlook()
+        {
+            name = "Outlook";
+            recievePort = 995;
+            recieveServer = "pop3.live.com";
+            recieveSSL = true;
+            sendPort = 587;
+            sendServer = "smtp.live.com";
+            sendSSL = false;
+        }//end completeOutlook
+
+        private void completeOffice365()
+        {
+            name = "Office365";
+            recievePort = 995;
+            recieveServer = "outlook.office365.com";
+            recieveSSL = true;
+            sendPort = 587;
+            sendServer = "smtp.office365.com";
+            sendSSL = false;
+        }//end completeOffice365
+
+        private void completeYahoo()
+        {
+            name = "Yahoo";
+            recievePort = 995;
+            recieveServer = "pop.mail.yahoo.com";
+            recieveSSL = true;
+            sendPort = 465;
+            sendServer = "smtp.mail.yahoo.com";
+            sendSSL = true;
+        }//end completeYahoo
+
+        //Yahoo Mail Plus
+        //Yahoo UK
+        //Yahoo Deutschland
+        //Yahoo AU/NZ
+
+        //O2
+        //O2.uk
+        //AOL.com
+        //AT&T
+        //NTL @ntlworld.com
+        //BT Connect
+        //BT Openworld
+        //BT Internet
+        //Orange
+        //Orange.uk
+        //Wanadoo UK
+
+        private void completeHotmail()
+        {
+            name = "Hotmail";
+            recievePort = 995;
+            recieveServer = "pop3.live.com";
+            recieveSSL = true;
+            sendPort = 465;
+            sendServer = "smtp.live.com";
+            sendSSL = true;
+        }//end completeOutlook
 
 
+        //list from:
+        //https://www.arclab.com/en/kb/email/list-of-smtp-and-pop3-servers-mailserver-list.html
 
-
-
-
+        #endregion
 
     }//end class
 }//end namespace

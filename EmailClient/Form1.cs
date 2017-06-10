@@ -21,6 +21,13 @@ namespace EmailClient
             {
                 panel1.Visible = false;
                 panel1.Enabled = false;
+                popEmailAccGrid();
+            }
+
+            else
+            {
+                dataGridEmails.Visible = false;
+                dataGridEmails.Enabled = false;
             }
 
         }//end constructor
@@ -42,8 +49,42 @@ namespace EmailClient
             {
                 panel1.Visible = false;
                 panel1.Enabled = false;
+                dataGridEmails.Visible = true;
+                dataGridEmails.Enabled = true;
+                popEmailAccGrid();
             }
         }//end submit email
+
+        private void popEmailAccGrid()
+        {
+            //display data
+            DataSet ds = DBHandler.GetEmailAccs();
+            dataGridEmails.DataSource = ds;
+            dataGridEmails.DataMember = ds.Tables["EmailAccounts"].ToString();
+        }//end popEmailAccGrid
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddEmail_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = true;
+            panel1.Enabled = true;
+            dataGridEmails.Visible = false;
+            dataGridEmails.Enabled = false;
+        }
+
+        private void dataGridEmails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string EmID = dataGridEmails.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+            int emID = Convert.ToInt32(EmID);
+
+            EmailForm Eform = new EmailForm(emID);
+            Eform.ShowDialog();
+        }
 
 
     }//end class
