@@ -83,7 +83,7 @@ namespace EmailClient
             int emID = Convert.ToInt32(EmID);
 
             EmailForm Eform = new EmailForm(emID);
-            Eform.ShowDialog();
+            Eform.Show();
         }
 
 

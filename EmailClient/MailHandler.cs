@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-//using OpenPop;
-//using OpenPop.Common;
-//using OpenPop.Common.Logging;
+//using OpenPop;//
+//using OpenPop.Common;//
+//using OpenPop.Common.Logging;//
 using OpenPop.Mime;
-//using OpenPop.Mime.Decode;
+//using OpenPop.Mime.Decode;//
 using OpenPop.Mime.Header;
 using OpenPop.Pop3;
 
-//using System.IO;
-//using System.Net.Security;
-//using System.Security.Cryptography.X509Certificates;
+//using System.IO;//
+//using System.Net.Security;//
+//using System.Security.Cryptography.X509Certificates;//
 
 namespace EmailClient
 {
@@ -45,6 +45,7 @@ namespace EmailClient
                     allMessages.Add(client.GetMessage(i));
                 }
 
+                client.Reset();
                 client.Disconnect();
                 client.Dispose();
 

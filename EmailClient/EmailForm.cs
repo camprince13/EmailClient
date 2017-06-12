@@ -14,9 +14,11 @@ namespace EmailClient
         public EmailForm(int id)
         {
             InitializeComponent();
+            dataGridEmList.AutoGenerateColumns = false;
             ea = DBHandler.GetFullEmailAccount(id);
             this.Text = ea.Address;
             et = new EmailType(ea.Type);
+            setupGrid();
             popGrid();
         }
 
@@ -43,6 +45,44 @@ namespace EmailClient
 
             dataGridEmList.DataSource = source;
         }//end popGrid
+
+        private void setupGrid()
+        {
+            dataGridEmList.AutoGenerateColumns = false;
+            dataGridEmList.AllowUserToAddRows = false;
+            dataGridEmList.AllowUserToDeleteRows = false;
+            dataGridEmList.AllowUserToResizeRows = false;
+            dataGridEmList.AllowUserToResizeColumns = false;
+            dataGridEmList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridEmList.ReadOnly = true;
+
+            DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn();
+            idColumn.HeaderText = "ID";
+            idColumn.DataPropertyName = "MessageId";
+
+            DataGridViewTextBoxColumn subjectColumn = new DataGridViewTextBoxColumn();
+            subjectColumn.HeaderText = "Subject";
+            subjectColumn.DataPropertyName = "Subject";
+
+            DataGridViewTextBoxColumn fromColumn = new DataGridViewTextBoxColumn();
+            fromColumn.HeaderText = "From";
+            fromColumn.DataPropertyName = "From";
+
+            DataGridViewTextBoxColumn sentColumn = new DataGridViewTextBoxColumn();
+            sentColumn.HeaderText = "Date Sent";
+            sentColumn.DataPropertyName = "DateSent";
+
+            DataGridViewTextBoxColumn importanceColumn = new DataGridViewTextBoxColumn();
+            importanceColumn.HeaderText = "Importance";
+            importanceColumn.DataPropertyName = "Importance";
+
+            dataGridEmList.Columns.Add(idColumn);
+            dataGridEmList.Columns.Add(subjectColumn);
+            dataGridEmList.Columns.Add(fromColumn);
+            dataGridEmList.Columns.Add(sentColumn);
+            dataGridEmList.Columns.Add(importanceColumn);
+        }//end setupGrid
+
 
 
     }//end class
