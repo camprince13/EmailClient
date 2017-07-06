@@ -14,4 +14,4 @@ Status:
 
 	Will currently download mail & put it into a list. Emails are saved to the database, so the info can be used autonomously.
 
-	The mail currently does not save to/load from the database properly. The email does not display yet. The saved emails are not yet encrypted.
+	The mail currently does not save to/load from the database properly. The email does not display yet. The saved emails/email accounts are not yet encrypted.
